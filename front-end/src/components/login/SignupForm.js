@@ -2,8 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { userRegister } from '../../actions'
-import { FormContainer } from '../../styled-components'
-import { Form } from 'semantic-ui-react'
+import { FormButton, FormFooter, FormLogo, FormHeading } from '../../styled-components';
+import { Form, Card } from 'semantic-ui-react'
 import { useInput } from '../hooks/useInput'
 
 const SignupForm = props => {
@@ -38,12 +38,15 @@ const SignupForm = props => {
             setPassword('')
     }
     return(
-        <FormContainer>
-            <Form size='massive' inverted>
+        <div className='card-container'>
+        <Card fluid>
+            <Card.Content textAlign='center'>
+            <FormLogo src='https://github.com/agyin3/images/blob/master/food-truck-trackr/Logo_1.png?raw=true' />
+            <FormHeading>Account Registration</FormHeading>
+            <Form size='huge' onSubmit={userRegister}>
                     <Form.Select 
                     required
                     name='type'
-                    label='User Type'
                     options={props.options}
                     placeholder='User Type'
                     value={type.value}
@@ -51,7 +54,7 @@ const SignupForm = props => {
                     />
                     <Form.Input 
                     required
-                    label='Username' 
+                    placeholder='Username' 
                     type='text' 
                     name='username' 
                     value={username} 
@@ -59,7 +62,7 @@ const SignupForm = props => {
                     />
                     <Form.Input
                     required
-                    label='Email'
+                    placeholder='Email'
                     type='email'
                     value={email}
                     name='email'
@@ -67,7 +70,7 @@ const SignupForm = props => {
                     />
                     <Form.Input
                     required
-                    label='Password'
+                    placeholder='Password'
                     type='text'
                     value={password}
                     name='password'
@@ -75,19 +78,19 @@ const SignupForm = props => {
                     />
                     <Form.Input
                     required
-                    label='Current City'
+                    placeholder='Current City'
                     type='text'
                     value={currentLocation}
                     name='current'
                     onChange={e => handleCurrent(e.target.value)}  
                     />
                     <p className='error'>{props.error}</p>
-                    <Form.Group inline>
-                        <Form.Button size='massive' onClick={userRegister}>Submit</Form.Button>
-                        <Link className='login-link' to='/login'>Login</Link>
-                    </Form.Group>
+                    <FormButton onClick={userRegister}>Submit</FormButton>
             </Form>
-        </FormContainer>
+            <FormFooter>Already have an account | <Link className='login-link' to='/login'>Sign in</Link></FormFooter>
+            </Card.Content>
+        </Card>
+        </div>
     )
 }
 

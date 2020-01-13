@@ -51,8 +51,8 @@ const FoodTruckForm = props => {
           />
 
           <TruckButton type="submit">Add Food Truck</TruckButton>
-              <p class='success'>{message.success}</p>
-              <p className='error'>{message.error}</p>
+              {message.success && <p class='success'>{message.success}</p>}
+              {message.error && <p className='error'>{message.error}</p>}
         </FormSpacing>
       </TruckFormContainer>
     </>

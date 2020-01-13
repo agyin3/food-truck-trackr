@@ -38,11 +38,8 @@
 }
 
 .login-link {
-  color: #fff;
-  font-size: 2rem;
-  text-decoration: underline;
-  font-family: Helvetica, sans-serif;
-  font-weight: 200;
+  font-size: 1.6rem;
+  color: #ECA564;
 }
 
 .login-link:hover {
@@ -73,4 +70,12 @@
   font-size: 1.2rem;
   color: 	#228B22;
   font-weight: bolder;
+}
+
+.card-container {
+  display: flex;
+  padding-top: 5%;
+  width: 60%;
+  margin: 0 auto;
+
 }
