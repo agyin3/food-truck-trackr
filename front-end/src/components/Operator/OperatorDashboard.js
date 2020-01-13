@@ -22,7 +22,7 @@ const OperatorDashboard = props => {
 
         <MyH3> Your Trucks: </MyH3>
 
-        {!props.operator.trucks && 
+        {props.operator.trucks.length < 1 && 
           <OperatorText>
           Click <Link id='operator-link' className='login-link' to='/operator/add-trucks'>here</Link> to add your trucks
           </OperatorText> 

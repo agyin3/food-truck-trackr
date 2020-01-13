@@ -1,6 +1,6 @@
 import React from 'react'
 import history from '../history'
-import { OperatorHead, Logo, Navigation, NavLinks } from '../../styled-components'
+import { Logo, Navigation, NavLinks, HeaderContainer } from '../../styled-components'
 
 const DinerHeader = () => {
     const signOut = () => {
@@ -11,7 +11,7 @@ const DinerHeader = () => {
     }
 
     return(
-        <OperatorHead>
+        <HeaderContainer>
             <NavLinks href='https://heuristic-swanson-2ca27f.netlify.com/'>
                 <Logo src='https://github.com/agyin3/images/blob/master/food-truck-trackr/logo.png?raw=true' />
             </NavLinks>
@@ -20,7 +20,7 @@ const DinerHeader = () => {
                 <NavLinks href='/diner/trucks'>Trucks</NavLinks>
                 <NavLinks onClick={signOut}>Sign Out</NavLinks>
             </Navigation>
-        </OperatorHead>
+        </HeaderContainer>
     )
 }
 
