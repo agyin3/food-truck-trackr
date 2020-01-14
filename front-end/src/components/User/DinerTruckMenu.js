@@ -1,7 +1,7 @@
 import React from "react";
-import DinerHeader from '../headers/DinerHeader'
-import { CardImg, MenuText, MenuH2, DinerBody } from '../../styled-components'
+import { CardImg, MenuText, MenuH2, DinerBody, ComponentContainer } from '../../styled-components'
 import { connect } from 'react-redux'
+import DinerSidePanel from "../headers/DinerSidePanel";
 
 const DinerTruckMenu = props => {
   const id = props.match.params.id
@@ -9,8 +9,8 @@ const DinerTruckMenu = props => {
   const truck = singleTruck[0];
 
   return (
-    <>
-    <DinerHeader />
+    <ComponentContainer>
+    <DinerSidePanel />
     <DinerBody>
       <CardImg src={truck.image_url} />
       <MenuText>Truck Name: {truck.name}</MenuText>
@@ -21,7 +21,7 @@ const DinerTruckMenu = props => {
         </MenuText>
       <MenuText>Customer Rating: {truck.rating}</MenuText>
     </DinerBody>
-    </>
+    </ComponentContainer>
   );
 }
 

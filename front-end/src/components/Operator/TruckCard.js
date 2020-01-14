@@ -16,7 +16,6 @@ function TruckCard(props) {
         <TruckCardImg src={props.truck.imgUrl} />
 
         <CardInfo>
-          <div>ID#: {props.truck.id}</div>
           <div>Truck Name: {props.truck.name}</div>
           <div>CuisineType: {props.truck.cuisineType}</div>
           <ButtonContainer>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Form, Header } from 'semantic-ui-react'
 import { fetchOperatorTrucks } from '../../actions'
+import ReactDropzone, { useDropzone } from 'react-dropzone'
 import axiosWithAuth from '../axiosWithAuth';
 import { connect } from 'react-redux';
 
@@ -11,6 +12,11 @@ export const TruckModal = (props) => {
 
     const handleChanges = e => {
         setTruck({...truck, [e.target.name]: e.target.value})
+    }
+
+    const handleOnDrop = files => {
+        console.log(files)
+        setTruck({...truck, imgUrl: files})
     }
 
     const close = () => {
@@ -27,10 +33,12 @@ export const TruckModal = (props) => {
             .then(res => {
                 console.log(res)
             })
+            .then(() => {
+                props.fetchOperatorTrucks('/trucks/owned')
+            })
             .catch(err => {
                 console.log(err)
             })
-            props.fetchOperatorTrucks('/trucks/owned')
             close();
     }
 
@@ -45,6 +53,15 @@ export const TruckModal = (props) => {
         >
             <Header>Edit Truck</Header>
             <Modal.Content>
+                    <ReactDropzone onDrop={handleOnDrop} accept={'image/*'}>
+                        {({getRootProps, getInputProps}) => (
+                            <section>
+                                <div className='img-drop' {...getRootProps()}>
+                                    <input className='img-input' {...getInputProps()} style={{display: 'inline-block'}} />
+                                </div>
+                            </section>
+                        )}
+                    </ReactDropzone>
             <Form size='massive'>
                     <Form.Input 
                     disabled
@@ -53,14 +70,6 @@ export const TruckModal = (props) => {
                     name='name' 
                     value={truck.name} 
                     onChange={handleChanges} 
-                    />
-                    <Form.Input
-                    required
-                    label='Image Url'
-                    type='text'
-                    value={truck.imgUrl}
-                    name='imgUrl'
-                    onChange={handleChanges}  
                     />
                     <Form.Input
                     required

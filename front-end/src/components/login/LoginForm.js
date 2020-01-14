@@ -27,7 +27,7 @@ const LoginForm = props => {
     return(
         <div className='card-container'>
         <Card fluid>
-            <Card.Content textAlign='center' raised>
+            <Card.Content textAlign='center'>
             <FormLogo src='https://github.com/agyin3/images/blob/master/food-truck-trackr/Logo_1.png?raw=true' />
             <FormHeading>Account Login</FormHeading>
             <Form size='huge' onSubmit={userLogin}>

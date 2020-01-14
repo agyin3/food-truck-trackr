@@ -1,32 +1,42 @@
-import React from "react";
-import { TruckCardImg, CardInfo, Card, CardButton, ButtonContainer } from '../../styled-components'
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+import { DinerCardImg, CardInfo, CardButton, ButtonContainer, DinerCardWrapper, Button} from '../../styled-components'
+import history from '../history'
 import { connect } from 'react-redux'
-import { deleteTruck } from '../../actions'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 const DinerCard = props => {
+
+  const [favorite, setFavorite] = useState(false)
+
+  const addFavorite = () => {
+    setFavorite(!favorite)
+  }
+
+  const redirect = () => {
+    history.push(`/diner/trucks/${props.truck.id}`)
+  }
 
   const deleteTruck = () => {
     props.deleteTruck(props.truck)
   }
   return (
-    <div className="character-card">
-      <Card>
-        <TruckCardImg src={props.truck.image_url} />
+      <DinerCardWrapper>
+        <DinerCardImg src={props.truck.image_url}>
+          {props.truck.name}
+        </DinerCardImg>
 
         <CardInfo>
-          <div>Truck Name: {props.truck.name}</div>
-          <div>Cuisine Type: {props.truck.categories.map(category => {
+          <p>Cuisine Type: {props.truck.categories.map(category => {
                return `${category.title} `
-          })}</div>
-          <div>Customer Rating: {props.truck.rating}</div>
-          <ButtonContainer>
-            <Link className='menu-link' to={`/diner/trucks/${props.truck.id}`}>View More</Link>
-            <CardButton onClick={deleteTruck}>Add To Favorites</CardButton>
+          })}</p>
+          <p>Customer Rating: {props.truck.rating}</p>
+          <ButtonContainer width='100%'>
+            <Button onClick={redirect}>View More</Button>
+            <FontAwesomeIcon className='favIcon' onClick={addFavorite} icon={favorite ? ['fas', 'heart'] : ['far', 'heart']} size='lg' />
           </ButtonContainer>
         </CardInfo>
-      </Card>
-    </div>
+      </DinerCardWrapper>
   );
 }
 

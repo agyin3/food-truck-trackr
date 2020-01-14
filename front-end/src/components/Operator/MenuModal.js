@@ -24,21 +24,21 @@ export const MenuModal = ({ id, name, setMenu }) => {
             })
             .then(res => {
                 console.log(res)
+                axiosWithAuth()
+                .post('/trucks/menu', {
+                    name
+                })
+                .then(results => {
+                    setMenu(results.data)
+                })
+                .catch(err => {
+                    console.log(err.message)
+                })
             })
             .catch(err => {
                 console.log(err)
             })
             
-        axiosWithAuth()
-            .post('/trucks/menu', {
-                name
-            })
-            .then(res => {
-                setMenu(res.data)
-            })
-            .catch(err => {
-                console.log(err.message)
-            })
             close();
     }
 

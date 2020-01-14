@@ -37,6 +37,22 @@
   }
 }
 
+@keyframes hide {
+  from {
+    width: 200px;
+  }
+
+  to {
+    width: 0px;
+    opacity: 0;
+  }
+}
+
+@keyframes reveal {
+  from {width: 0}
+  to {width: 200px; position: static;}
+}
+
 .login-link {
   font-size: 1.6rem;
   color: #ECA564;
@@ -52,11 +68,11 @@
 }
 
 .menu-link {
-  color: #fff;
+  color: #000;
 }
 
 .menu-link:hover {
-  color: #000;
+  color: #E68959;
   cursor: pointer;
 }
 
@@ -78,4 +94,55 @@
   width: 60%;
   margin: 0 auto;
 
+}
+
+.img-input {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  opacity: 1e-05;
+  pointer-events: none;
+}
+
+
+.img-drop {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-width: 2px;
+  border-color: rgb(102, 102, 102);
+  border-style: dashed;
+  border-radius: 5px;
+  margin: 0 auto;
+}
+
+.favIcon {
+  color: #e12c2c;
+}
+
+.favIcon:hover {
+  cursor: pointer
+}
+
+.input-container {
+  display: flex;
+  width: 40%;
+  justify-content: flex-end;
+  margin: 0;
+}
+
+.form-icon {
+  border-radius: 25px 0 0 25px;
+  border: 3px solid #000;
+  background: #000;
+  color: #fff;
+  height: 3rem;
+  min-width: 3rem;
+  padding: 0 5px;
+}
+
+.search-form {
+  width: 0;
 }
