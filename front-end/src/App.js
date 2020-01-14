@@ -3,7 +3,6 @@ import { Router, Switch, Route } from 'react-router-dom'
 import history from './components/history'
 import PrivateRoute from './components/PrivateRoute'
 import './App.css';
-import FoodTruckForm from './components/Operator/FoodTruckForm';
 import DinerTruckMenu from './components/User/DinerTruckMenu'
 import OperatorDashboard from './components/Operator/OperatorDashboard'
 import FoodTruckMenu from './components/Operator/FoodTruckMenu'
@@ -11,6 +10,13 @@ import SignupPage from './components/login/SignupPage'
 import LoginPage from './components/login/LoginPage'
 import TestDiner from './components/User/testdiner';
 import TruckList from './components/User/TruckList';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faHeart as faHeartSolid, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons'
+
+library.add(faHeartSolid, faHeartRegular, faSearch)
+
+
 
 function App() {
   return (
@@ -22,7 +28,6 @@ function App() {
           <PrivateRoute exact path='/diner/trucks' component={TruckList} />
           <PrivateRoute exact path='/diner/trucks/:id' component={DinerTruckMenu} />
           <PrivateRoute exact path='/operator/dashboard' component={OperatorDashboard} />
-          <PrivateRoute exact path='/operator/add-trucks' component={FoodTruckForm} />
           <PrivateRoute exact path='/operator/:id' component={FoodTruckMenu} />
           <Route exact path='/login' component={LoginPage} />
           <Route exact path='/register' component={SignupPage} />

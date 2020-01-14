@@ -1,22 +1,21 @@
 import React from 'react'
 import history from '../history'
-import { Logo, Navigation, NavLinks, HeaderContainer } from '../../styled-components'
+import { HeaderContainer, Logo, NavLinks, Navigation } from '../../styled-components'
 
-const DinerHeader = () => {
+const Header = () => {
     const signOut = () => {
         localStorage.removeItem('reduxState');
         localStorage.removeItem('token')
         localStorage.removeItem('type')
         history.push('/login')
     }
-
     return(
         <HeaderContainer>
             <NavLinks href='https://heuristic-swanson-2ca27f.netlify.com/'>
                 <Logo src='https://github.com/agyin3/images/blob/master/food-truck-trackr/logo.png?raw=true' />
             </NavLinks>
             <Navigation>
-                <NavLinks href='/diner/dashboard'>Dashboard</NavLinks>
+                <NavLinks href='/login'>Dashboard</NavLinks>
                 <NavLinks href='/diner/trucks'>Trucks</NavLinks>
                 <NavLinks onClick={signOut}>Sign Out</NavLinks>
             </Navigation>
@@ -24,4 +23,4 @@ const DinerHeader = () => {
     )
 }
 
-export default DinerHeader
+export default Header

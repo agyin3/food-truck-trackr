@@ -1,12 +1,20 @@
-import React, { useEffect } from "react";
-import { OperatorBody, MyH2, MyH3, OperatorText } from '../../styled-components'
+import React, { useEffect, useState } from "react";
+import Zoom from 'react-reveal/Zoom'
+import { OperatorBody, MyH3, OperatorText, ComponentContainer, AddButton } from '../../styled-components'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import FoodTruckForm from './FoodTruckForm'
 import TruckCard from "./TruckCard"
-import OperatorHeader from '../headers/OperatorHeader'
 import { fetchOperatorTrucks } from "../../actions";
+import OperatorSidePanel from "../headers/OperatorSidePanel";
 
 const OperatorDashboard = props => {
+
+  const [show, setShow] = useState(false)
+
+  const handleShow = () => {
+    setShow(!show)
+  }
 
   useEffect(() => {
     props.fetchOperatorTrucks('/trucks/owned');
@@ -14,14 +22,16 @@ const OperatorDashboard = props => {
 
   
   return (
-    <>
-      <OperatorHeader />
+    <ComponentContainer>
+      <OperatorSidePanel />
       <OperatorBody>
-        <MyH2>{props.operator.message}</MyH2>
 
 
-        <MyH3> Your Trucks: </MyH3>
-
+        <MyH3> Your Trucks </MyH3>
+        <AddButton onClick={handleShow}>Add Truck</AddButton>
+        <Zoom collapse when={show}>
+          <FoodTruckForm />
+        </Zoom>
         {props.operator.trucks.length < 1 && 
           <OperatorText>
           Click <Link id='operator-link' className='login-link' to='/operator/add-trucks'>here</Link> to add your trucks
@@ -33,7 +43,7 @@ const OperatorDashboard = props => {
         })}
 
       </OperatorBody>
-    </>
+    </ComponentContainer>
   );
 }
 

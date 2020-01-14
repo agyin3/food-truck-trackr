@@ -56,7 +56,7 @@ switch(action.type) {
             ...state,
             diner: {
                 ...action.payload,
-                ...state.diner
+                favoriteTrucks:[]
             },
             isLoading: false,
             error: ''
@@ -76,7 +76,7 @@ switch(action.type) {
             ...state,
             diner: {
                 ...action.payload,
-                message: action.payload.message
+                favoriteTrucks:[]
             },
             isLoading: false,
             error: ''
@@ -163,3 +163,4 @@ switch(action.type) {
         return state
 }
 }
+

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { FormLabel, FormSpacing, TruckFormContainer, InputStyle, TextArea, TruckButton } from '../../styled-components'
+import { Form } from 'semantic-ui-react'
+import { TruckFormContainer } from '../../styled-components'
 import { addTruck } from "../../actions";
-import OperatorHeader from "../headers/OperatorHeader";
 
 const FoodTruckForm = props => {
   const [truck, setTruck] = useState({
@@ -28,11 +28,9 @@ const FoodTruckForm = props => {
 
   return (
     <>
-      <OperatorHeader />
       <TruckFormContainer>
-        <FormSpacing onSubmit={submitForm}>
-          <FormLabel htmlFor="truckname">Food Truck Name</FormLabel>
-          <InputStyle
+        <Form onSubmit={submitForm}>
+          <Form.Input
             id="truckname"
             type="text"
             name="truckname"
@@ -40,9 +38,7 @@ const FoodTruckForm = props => {
             onChange={handleChanges}
             value={truck.truckname}
           />
-
-          <FormLabel htmlFor="cuisineType">Cuisine Type</FormLabel>
-          <TextArea
+          <Form.Input
             id="cuisineType"
             name="cuisineType"
             placeholder="Add cuisineType here"
@@ -50,10 +46,10 @@ const FoodTruckForm = props => {
             value={truck.cuisineType}
           />
 
-          <TruckButton type="submit">Add Food Truck</TruckButton>
+          <Form.Button type="submit">Add Food Truck</Form.Button>
               {message.success && <p class='success'>{message.success}</p>}
               {message.error && <p className='error'>{message.error}</p>}
-        </FormSpacing>
+        </Form>
       </TruckFormContainer>
     </>
   );

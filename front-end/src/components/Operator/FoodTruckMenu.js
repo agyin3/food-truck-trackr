@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import OperatorHeader from '../headers/OperatorHeader'
-import { CardImg, MenuText, MenuH2, Body } from '../../styled-components'
+import { CardImg, MenuText, MenuH2, DinerBody, ComponentContainer, MenuCard, CardTextContainer } from '../../styled-components'
 import { connect } from 'react-redux'
 import axiosWithAuth from '../axiosWithAuth'
 import MenuModal from './MenuModal'
+import OperatorSidePanel from "../headers/OperatorSidePanel";
 
 function FoodTruckMenu(props) {
   const id = props.match.params.id
@@ -28,15 +28,17 @@ function FoodTruckMenu(props) {
   console.log(menu)
 
   return (
-    <>
-    <OperatorHeader />
-    <Body>
-      <CardImg src={truck.imgUrl} />
-
-      <MenuText>Truck #: {truck.id}</MenuText>
-      <MenuText>Truck Name: {truck.name}</MenuText>
-      <MenuText>CuisineType: {truck.cuisineType}</MenuText>
-      <MenuText>Customer Rating Average: {truck.customerRatingAvg} </MenuText>
+    <ComponentContainer>
+    <OperatorSidePanel />
+    <DinerBody>
+      <MenuCard>
+        <CardImg src={truck.imgUrl} />
+        <CardTextContainer>
+          <MenuText>Truck Name: {truck.name}</MenuText>
+          <MenuText>CuisineType: {truck.cuisineType}</MenuText>
+          <MenuText>Customer Rating Average: {truck.customerRatingAvg} </MenuText>
+        </CardTextContainer>
+      </MenuCard>
 
       <MenuModal id={id} setMenu={setMenu} name={truck.name} />
 
@@ -44,14 +46,15 @@ function FoodTruckMenu(props) {
 
       {menu && menu.map(item => { 
           return(
-              <div>
-         <MenuText>Item Name: {item.itemName} </MenuText>
-          <MenuText>Item Descrition: {item.itemDescription}</MenuText>
-          <MenuText>Item Price: {item.itemPrice}</MenuText>
-          </div>
+          <CardTextContainer>
+            <MenuText><strong>Item Name:</strong> {item.itemName} </MenuText>
+            <MenuText><strong>Item Descrition:</strong> {item.itemDescription}</MenuText>
+            <MenuText><strong>Item Price:</strong> {item.itemPrice}</MenuText>
+            <hr />
+          </CardTextContainer>
       )})}
-    </Body>
-    </>
+    </DinerBody>
+    </ComponentContainer>
   );
 }
 
