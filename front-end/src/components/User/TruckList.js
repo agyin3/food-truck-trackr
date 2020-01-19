@@ -9,20 +9,28 @@ import DinerHeader from '../headers/DinerHeader'
 const TruckList = props => {
 
     console.log(props.diner)
+    const [location, setLocation] = useState(props.diner.location)
+    const [search, setSearch] = useState(false)
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        setSearch(true)
+        props.getYelpTrucks('https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search', location)
+    }
 
     useEffect(() => {
-        props.getYelpTrucks('https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search', props.diner.location)
+        props.getYelpTrucks('https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search', location)
     }, [])
     return(
         <>
         <DinerHeader />
         <OperatorBody>
         <Segment>
-            <MyH3>Viewing trucks in {props.diner.location}</MyH3>
-            <form className='search-form'>
+            {!search ? <MyH3>Viewing trucks in {props.diner.location}</MyH3> : <MyH3>Viewing trucks in {location}</MyH3>}
+            <form className='search-form' onSubmit={handleSubmit}>
             <div className='input-container'>
                 <FontAwesomeIcon className='form-icon' icon='search'/>
-                <SearchInput type='text' />
+                <SearchInput type='text' onChange={e => {setLocation(e.target.value)}} />
             </div>
             </form>
         </Segment>
