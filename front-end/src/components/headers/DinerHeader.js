@@ -9,13 +9,19 @@ const Header = () => {
         localStorage.removeItem('type')
         history.push('/login')
     }
+
+    const handleDashboard = e => {
+        e.preventDefault()
+        localStorage.removeItem('search')
+        history.push('/diner/dashboard')
+    }
     return(
         <HeaderContainer>
             <NavLinks href='https://heuristic-swanson-2ca27f.netlify.com/'>
                 <Logo src='https://github.com/agyin3/images/blob/master/food-truck-trackr/logo.png?raw=true' />
             </NavLinks>
             <Navigation>
-                <NavLinks href='/login'>Dashboard</NavLinks>
+                <NavLinks onClick={handleDashboard}>Dashboard</NavLinks>
                 <NavLinks href='/diner/trucks'>Trucks</NavLinks>
                 <NavLinks onClick={signOut}>Sign Out</NavLinks>
             </Navigation>
