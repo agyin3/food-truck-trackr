@@ -1,23 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Modal, Form, Header } from 'semantic-ui-react'
 import { fetchOperatorTrucks } from '../../actions'
 import ReactDropzone, { useDropzone } from 'react-dropzone'
 import axiosWithAuth from '../axiosWithAuth';
 import { connect } from 'react-redux';
+import cuid from 'cuid'
+import { TruckCardImg } from '../../styled-components';
 
 export const TruckModal = (props) => {
-    const truckImgUrl = props.truck.imgUrl;
-    const [truck, setTruck] = useState({...props.truck, imgUrl: truckImgUrl ? truckImgUrl : ''})
+    const [image, setImage] = useState()
+    const [truck, setTruck] = useState({...props.truck})
     const [open, setOpen] = useState(false)
 
     const handleChanges = e => {
         setTruck({...truck, [e.target.name]: e.target.value})
     }
 
-    const handleOnDrop = files => {
-        console.log(files)
-        setTruck({...truck, imgUrl: files})
-    }
+    const handleOnDrop = useCallback(files => {
+        // Loop through accepted files
+        files.map(file => {
+            // Initialize FileReader browser API
+            const reader = new FileReader()
+            //onload allback gets called after the reader reads the file data
+            reader.onload = (e) => {
+                //Add the image to the state. FileReader is asyncronous so its best to get the latest snapshot state(ie. prevState) and update it
+                setImage({id: cuid(), src: e.target.result})
+                setTruck({...truck, imgUrl: e.target.result})
+            }
+            // Read the file as Data URL
+            reader.readAsDataURL(file)
+            return file
+        })
+    }, [])
+
+    console.log(truck)
 
     const close = () => {
         setOpen(false)
@@ -54,11 +70,17 @@ export const TruckModal = (props) => {
             <Header>Edit Truck</Header>
             <Modal.Content>
                     <ReactDropzone onDrop={handleOnDrop} accept={'image/*'}>
-                        {({getRootProps, getInputProps}) => (
+                        {({getRootProps, getInputProps, isDragActive}) => (
                             <section>
-                                <div className='img-drop' {...getRootProps()}>
+                                <div className={isDragActive ? 'drag-active ' : '' + 'img-drop'} {...getRootProps()}>
                                     <input className='img-input' {...getInputProps()} style={{display: 'inline-block'}} />
+                                    {image && <TruckCardImg src={image.src} />}
                                 </div>
+                                {isDragActive ? (
+                                        <p className='drop-text'>Release the image file here</p>
+                                    ) : (
+                                        <p className='drop-text'>Drag 'n' drop an image here or select to upload an image</p>
+                                )}
                             </section>
                         )}
                     </ReactDropzone>
